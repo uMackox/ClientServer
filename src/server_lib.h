@@ -1,3 +1,16 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/epoll.h>
+#include <syslog.h>
+#include <netdb.h>
+#include <errno.h>
+#include <string.h>
+#include <fcntl.h>
+#include <signal.h>
 // Client structure
 struct client_struct{
   char name[255]; // Client name
