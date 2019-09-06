@@ -21,12 +21,15 @@ int main(int argc, char* argv[]){
   char* buff;
   // Main client loop
   for(;;){
-    printf("\n");
+    printf("Type message (exit to end):\n");
     getline(&buff,&buffsize,stdin);
+    if(strncmp(buff,"exit",4)==0){
+      break;
+    }
     send(msock,buff,strlen(buff),0);
   }
 
-
+  close(msock);
 
   return 0;
 }

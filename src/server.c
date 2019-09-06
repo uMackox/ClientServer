@@ -35,8 +35,15 @@ int main(int argc,char* argv[]){
   for(;;){
     memset(buff,0,BSIZE);
     recv(cfd,buff,sizeof(buff)-1,0);
-    printf("\nReceived message :\n %s \n",buff);
+    if(strncmp(buff,"",1)==0){
+      printf("Client closed connection\n");
+      break;
+    }
+    else{
+      printf("\nReceived message :\n %s\n",buff);
+    }
   }
 
+  close(msock);
   return 0;
 }
