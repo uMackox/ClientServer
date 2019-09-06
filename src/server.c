@@ -1,12 +1,5 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <errno.h>
-#include <string.h>
+#include "server_lib.h"
 
-#define BACKLOG 10
-#define BSIZE 255
 int main(int argc,char* argv[]){
     // Create socket for communication
     int msock = socket(AF_INET,SOCK_STREAM,0);

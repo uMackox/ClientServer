@@ -1,10 +1,35 @@
-client: client.c
-	gcc -Wall -o client client.c
-server: server.c
-	gcc -Wall -o server server.c
+CLIENT_TARGET=client
+SERVER_TARGET=server
+CLIENT_SRC=client.c
+SERVER_SRC=server.c
+CLIENT_LIB=client_lib.c
+SERVER_LIB=server_lib.c
 
+SRC_DIR=./src
+BIN_DIR=./bin
+TMP_DIR=./tmp
+BUILD_FLAGS = -Wall
+CFLAGS = -Wall -c
+CLIENT_OBJ= $(TMP_DIR)/client.o
+CLIENT_LIB_OBJ= $(TMP_DIR)/client_lib.o
+SERVER_OBJ= $(TMP_DIR)/server.o
+SERVER_LIB_OBJ= $(TMP_DIR)/server_lib.o
+CC=gcc
 
-build: client server
+$(CLIENT_TARGET): dirs $(CLIENT_OBJ)
+	$(CC) $(BUILD_FLAGS) -o $(BIN_DIR)/$(CLIENT_TARGET) $(CLIENT_OBJ) $(CLIENT_LIB_OBJ)
 
+$(SERVER_TARGET): dirs $(SERVER_OBJ)
+	$(CC) $(BUILD_FLAGS) -o $(BIN_DIR)/$(SERVER_TARGET) $(SERVER_OBJ) $(SERVER_LIB_OBJ)
+
+$(CLIENT_OBJ): $(SRC_DIR)/$(CLIENT_SRC) $(SRC_DIR)/$(CLIENT_LIB)
+	$(CC) $(CFLAGS) -o $(CLIENT_OBJ) $(SRC_DIR)/$(CLIENT_SRC)
+	$(CC) $(CFLAGS) -o $(CLIENT_LIB_OBJ) $(SRC_DIR)/$(CLIENT_LIB)
+
+$(SERVER_OBJ): $(SRC_DIR)/$(SERVER_SRC) $(SRC_DIR)/$(SERVER_LIB)
+	$(CC) $(CFLAGS) -o $(SERVER_OBJ) $(SRC_DIR)/$(SERVER_SRC)
+	$(CC) $(CFLAGS) -o $(SERVER_LIB_OBJ) $(SRC_DIR)/$(SERVER_LIB)
+dirs:
+	mkdir -p $(BIN_DIR) $(TMP_DIR)
 clean:
-	rm -rf client server
+	rm -rf $(BIN_DIR) $(TMP_DIR)
