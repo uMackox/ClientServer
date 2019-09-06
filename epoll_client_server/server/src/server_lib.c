@@ -12,7 +12,7 @@ int CreateSocket(){
   return msock;
 }
 // Function binding
-void BindSocket(int msocket,char* ipaddr,char* portnum){
+struct addrinfo* BindSocket(int msocket,char* ipaddr,char* portnum){
   // Obtain address information
   struct addrinfo* addrinfo;
   if(getaddrinfo(ipaddr,portnum,NULL,&addrinfo)!=0){
@@ -26,6 +26,7 @@ void BindSocket(int msocket,char* ipaddr,char* portnum){
       exit(EXIT_FAILURE);
   }
   printf("[*] Succesfully bound socket!\n");
+  return addrinfo;
 }
 
 void ListenSocket(int msocket){

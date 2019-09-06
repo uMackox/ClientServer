@@ -6,9 +6,11 @@
 #include <netdb.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/epoll.h>
 
 #define BACKLOG 10
+#define BSIZE 1024
 
 int CreateSocket();
-void BindSocket(int,char*, char*);
+struct addrinfo* BindSocket(int,char*, char*);
 void ListenSocket(int);
