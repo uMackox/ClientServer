@@ -61,11 +61,6 @@ int main(int argc,char* argv[]){
       }
     }
   }
-
-
-
-
-
   close(msock);
   return 0;
 }
