@@ -1,7 +1,0 @@
-./basic_client_server/Makefile
-./basic_client_server/bin/
-./basic_client_server/tmp/
-
-./epoll_client_server/Makefile
-./epoll_client_server/bin/
-./epoll_client_server/tmp/
