@@ -63,3 +63,24 @@ void AddClient(struct client* clist,int csock,char* cname){
   }
 
 }
+
+// Remove client from list
+void RemoveClient(struct client* clist,char* cname){
+  int i=0;
+  while(strcmp(clist[i].name,cname) != 0){
+    i++;
+  }
+  memset(clist[i].name,0,255);
+  clist[i].status = 0;
+  clist[i].csock = -1;
+
+}
+
+char* GetNameBySock(struct client* clist,int fd){
+  for(int i=0;i<BACKLOG;i++){
+    if(clist[i].csock == fd){
+      return clist[i].name;
+    }
+  }
+  return "";
+}

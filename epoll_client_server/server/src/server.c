@@ -56,12 +56,22 @@ int main(int argc,char* argv[]){
         memset(buff,0,BSIZE);
         recv(events[i].data.fd,buff,sizeof(buff)-1,0);
         if(strncmp(buff,"",1)==0){
-          printf("Client closed connection\n");
+          printf("Client %s closed connection\n",GetNameBySock(clist,events[i].data.fd));
+          RemoveClient(clist,GetNameBySock(clist,events[i].data.fd));
           close(events[i].data.fd);
-        }
+        };
         else{
+          char preamb;
+          preamb = buff[0];
+          switch(preamb){
+            case 'I': // Introduction
+              AddClient(clist,events[i].data.fd,buff+2);
+              printf("Client %s just connected\n",buff+2);
+              break;
+            default:
+              printf("\nReceived from %s :\n %s\n",GetNameBySock(clist,events[i].data.fd),buff);
+          }
 
-          printf("\nReceived message :\n %s\n",buff);
         }
       }
     }

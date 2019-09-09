@@ -21,3 +21,5 @@ int CreateSocket();
 struct addrinfo* BindSocket(int,char*, char*);
 void ListenSocket(int);
 void AddClient(struct client*,int,char*);
+void RemoveClient(struct client*,char*);
+char* GetNameBySock(struct client*,int);
