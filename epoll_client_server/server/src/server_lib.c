@@ -37,3 +37,29 @@ void ListenSocket(int msocket){
   }
   printf("[*] Listen on socket succesfull!\n");
 }
+
+// Add new client to the list
+void AddClient(struct client* clist,int csock,char* cname){
+  if(strlen(cname)>0){ // name validation
+    int i=0;
+    while(clist[i].status != 0){
+      if(strcmp(clist[i].name,cname) == 0){
+        printf("[X] Client with name %s is already on the list",cname);
+        return;
+      }
+      i++;
+    }
+    if(i>=BACKLOG){
+      printf("[X] Cannot add another client reached limit for connections");
+      return;
+    }
+    memset(clist[i].name,0,255);
+    strcat(clist[i].name,cname);
+    clist[i].status = 1;
+    clist[i].csock = csock;
+  }
+  else{
+    printf("[X] Couldnt connect client (invalid name)");
+  }
+
+}

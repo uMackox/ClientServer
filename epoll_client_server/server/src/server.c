@@ -27,6 +27,10 @@ int main(int argc,char* argv[]){
     exit(EXIT_FAILURE);
   }
   // Main epoll loop
+
+  struct client* clist; // client list preparation
+  clist = (struct client*) calloc(BACKLOG,sizeof(struct client));
+
   char buff[BSIZE];
   for(;;){
     nfd = epoll_wait(epollfd,events,BACKLOG,-1);
@@ -56,6 +60,7 @@ int main(int argc,char* argv[]){
           close(events[i].data.fd);
         }
         else{
+
           printf("\nReceived message :\n %s\n",buff);
         }
       }
