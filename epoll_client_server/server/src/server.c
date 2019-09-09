@@ -9,7 +9,7 @@ int main(int argc,char* argv[]){
   // Listening on socket
   ListenSocket(msock);
 
-  // Epoll handling
+  // Epoll handling,
   struct epoll_event ev, events[BACKLOG];
   int epollfd,nfd,csock;
   // Creating epoll instance
@@ -59,7 +59,7 @@ int main(int argc,char* argv[]){
           printf("Client %s closed connection\n",GetNameBySock(clist,events[i].data.fd));
           RemoveClient(clist,GetNameBySock(clist,events[i].data.fd));
           close(events[i].data.fd);
-        };
+        }
         else{
           char preamb;
           preamb = buff[0];
