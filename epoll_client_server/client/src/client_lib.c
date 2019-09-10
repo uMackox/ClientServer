@@ -20,3 +20,14 @@ void ConnectSocket(int msocket,const char* ipaddress,const char* portnum){
   }
   printf("[*] Connection succesfull !\n");
 }
+
+
+void* ReceiveMsgs(void* args){
+  int* msock = (int*)  args;
+  char buff[BSIZE];
+  for(;;){
+    memset(buff,0,BSIZE);
+    recv(*msock,buff,sizeof(buff)-1,0);
+    printf("\nReceived message :\n %s \n",buff);
+  }
+}

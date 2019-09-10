@@ -23,3 +23,5 @@ void ListenSocket(int);
 void AddClient(struct client*,int,char*);
 void RemoveClient(struct client*,char*);
 char* GetNameBySock(struct client*,int);
+void SendMessage(struct client*, char*);
+void SendList(struct client*,char*);

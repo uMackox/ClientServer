@@ -15,7 +15,11 @@ int main(int argc, char const *argv[]) {
   msg[msglen+2]='\n';
   send(msock,msg,msglen+2,0);
 
-
+  // Creating message receiving thread
+  pthread_t thread;
+  if(pthread_create(&thread,NULL,ReceiveMsgs,(void*)&msock)){
+      printf("Failed to create Receiver pthread");
+  }
 
   // Message buffor preparation
   size_t buffsize;

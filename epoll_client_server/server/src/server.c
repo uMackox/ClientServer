@@ -68,6 +68,12 @@ int main(int argc,char* argv[]){
               AddClient(clist,events[i].data.fd,buff+2);
               printf("Client %s just connected\n",buff+2);
               break;
+            case 'M':
+              SendMessage(clist,buff+2);
+              break;
+            case 'L':
+              //SendList();
+              break;
             default:
               printf("\nReceived from %s :\n %s\n",GetNameBySock(clist,events[i].data.fd),buff);
           }

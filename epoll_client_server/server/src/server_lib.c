@@ -72,7 +72,7 @@ void RemoveClient(struct client* clist,char* cname){
   }
   memset(clist[i].name,0,255);
   clist[i].status = 0;
-  clist[i].csock = -1;
+  clist[i].csock = 0;
 
 }
 
@@ -83,4 +83,34 @@ char* GetNameBySock(struct client* clist,int fd){
     }
   }
   return "";
+}
+
+void SendMessage(struct client* clist,char* msg){
+  char name[255];
+  char tosend[BSIZE];
+  memset(name,0,255);
+  memset(tosend,0,BSIZE);
+  int i=0,j=0;
+  while(msg[i]!=' '){
+    name[i]=msg[i];
+    i++;
+  }
+  name[i]='\0';
+  while(msg[i]!='\0' && j<BSIZE){
+    tosend[j] = msg[i];
+    j++;
+    i++;
+  }
+  tosend[j]='\0';
+  i=0;
+  while(strcmp(clist[i].name,name) && i<BACKLOG-1){
+    i++;
+  }
+  if(strcmp(clist[i].name,name)==0){
+    send(clist[i].csock,tosend,strlen(msg),0);
+  }
+
+}
+void SendList(struct client* clist,char* cname){
+
 }
