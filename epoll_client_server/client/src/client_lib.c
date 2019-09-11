@@ -21,7 +21,7 @@ void ConnectSocket(int msocket,const char* ipaddress,const char* portnum){
   printf("[*] Connection succesfull !\n");
 }
 
-
+// Message receiving function
 void* ReceiveMsgs(void* args){
   int* msock = (int*)  args;
   char buff[BSIZE];

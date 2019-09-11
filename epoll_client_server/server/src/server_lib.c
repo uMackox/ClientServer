@@ -76,6 +76,7 @@ void RemoveClient(struct client* clist,char* cname){
 
 }
 
+// Get client name based on his connection socket
 char* GetNameBySock(struct client* clist,int fd){
   for(int i=0;i<BACKLOG;i++){
     if(clist[i].csock == fd){
@@ -85,6 +86,7 @@ char* GetNameBySock(struct client* clist,int fd){
   return "";
 }
 
+// Handle message sending
 void SendMessage(struct client* clist,char* msg){
   char name[255];
   char tosend[BSIZE];

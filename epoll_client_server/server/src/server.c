@@ -39,7 +39,7 @@ int main(int argc,char* argv[]){
       exit(EXIT_FAILURE);
     }
     for(int i=0;i<nfd;i++){
-      if(events[i].data.fd==msock){
+      if(events[i].data.fd==msock){ // Handle new connection events
         csock = accept(msock, (struct sockaddr *) addr->ai_addr,&addr->ai_addrlen);
         if(csock == -1){
           printf("[X] Error accepting connection : %s\n",strerror(errno));
@@ -52,7 +52,7 @@ int main(int argc,char* argv[]){
           exit(-1);
         }
       }
-      else{
+      else{ // Handle connected client events
         memset(buff,0,BSIZE);
         recv(events[i].data.fd,buff,sizeof(buff)-1,0);
         if(strncmp(buff,"",1)==0){
@@ -68,11 +68,8 @@ int main(int argc,char* argv[]){
               AddClient(clist,events[i].data.fd,buff+2);
               printf("Client %s just connected\n",buff+2);
               break;
-            case 'M':
+            case 'M': // Message sending
               SendMessage(clist,buff+2);
-              break;
-            case 'L':
-              //SendList();
               break;
             default:
               printf("\nReceived from %s :\n %s\n",GetNameBySock(clist,events[i].data.fd),buff);
